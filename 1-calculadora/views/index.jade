@@ -1,0 +1,22 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Calculadora
+    body
+        h1 Calculadora
+        form(action="calcular", method="POST")
+            label Número 1: 
+            input(type="number",name="n1",value="#{n1}")
+            br
+            label Número 2: 
+            input(type="number",name="n2",value="#{n2}")
+            br
+            label Resultado: 
+            input(type="number",name="rdo",value="#{rdo}",readonly)
+            br
+            br
+            input(type="submit",name="operacion",value="+")
+            input(type="submit",name="operacion",value="-")
+            input(type="submit",name="operacion",value="*")
+            input(type="submit",name="operacion",value="/")

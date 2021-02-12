@@ -1,0 +1,15 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Tabla de multiplicar
+    body
+        h1 Has perdido!! 
+        h4 Tabla del #{tabla}
+        form(action="validarTabla", method="POST")
+            - for(i=1;i<=10;i++) 
+                - var n = tabla*i;
+                p #{tabla} * #{i} = 
+                    input(type="number",name="rdo", value="#{n}")
+            
+        a(href="/") Volver a jugar

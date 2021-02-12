@@ -1,0 +1,24 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Tabla de multiplicar
+    body
+        h1 Tabla del #{tabla}
+        h2 Intentos:  #{intentos}
+        - if(ganar)
+            h2 Has ganado!
+    
+        form(action="validarTabla", method="POST")
+            - for(i=0;i<10;i++) 
+                p #{tabla} * #{i+1} = 
+                    - if(respuestas && colores)
+                        input(type="number",name="rdo",value="#{respuestas[i]}")(style={background: '#{colores[i]}'})
+                    - else 
+                        input(type="number",name="rdo",value="")
+            - if(!ganar)
+                input(type="submit",value="Comprobar")
+        form(action="meRindo", method="POST")
+            -if(!ganar)
+                input(type="submit",value="Me rindo")
+        a(href="/") Volver
