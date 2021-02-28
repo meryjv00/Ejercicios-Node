@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Nueva persona
+    body
+        h1 Añade nueva persona
+        form(action="irCRUD", method="POST")
+            input(type="submit",value="Volver")
+        br
+        form(action="cerrarSesion", method="POST")
+            input(type="submit",value="Cerrar sesión")
+        br
+        br 
+        form(action="addPersona", method="POST")
+            label Dni: 
+            br
+            input(type="text",name="dni",required)
+            br
+            label Correo:
+            br
+            input(type="email",name="correo",required)
+            br
+            label Contraseña:
+            br
+            input(type="password",name="pass",required)
+            br
+            label Nombre:
+            br
+            input(type="text",name="nombre",required)
+            br
+            label Teléfono:
+            br
+            input(type="text",name="tfno",required)
+            br
+            label Edad:
+            br
+            input(type="number",name="edad",required)
+            br
+            label Rol:
+            select(name="rol")
+                option Admin
+                option Usuario
+            - if(mensaje)
+                p!= mensaje
+            - else 
+                br
+            br
+            input(type="submit",value="Confirmar")
+        

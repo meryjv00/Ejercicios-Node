@@ -1,0 +1,11 @@
+body {
+    background-color: rgb(226, 206, 206);
+}
+
+.disabled {
+    background-color: #EC7063;
+}
+
+.enabled {
+    background-color: #81e099;
+}

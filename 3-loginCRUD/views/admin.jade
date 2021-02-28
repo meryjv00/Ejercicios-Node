@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title CRUD
+    body
+        h1 Bienvenido/a #{persona.nombre}  CRUD
+
+        h1 Lista de personas 
+
+        form(action="addNuevaPersona", method="POST")
+            input(type="submit",value="Añade nueva persona")  
+        br
+        form(action="cerrarSesion", method="POST")
+            input(type="submit",value="Cerrar sesión")  
+        br
+        
+        table(id="tabla-personas")
+            thead
+                tr
+                    th Dni
+                    th Correo
+                    th Nombre 
+                    th Teléfono 
+                    th Edad
+                    th Activado
+                    th Opciones
+            tbody
+                each persona,index in personas
+                    form(action="adminPersonas", method="POST")
+                        tr
+                            td 
+                                input(type="text",name="dni",value="#{persona.dni}",readonly)
+                            td
+                                input(type="text",name="correo",value="#{persona.correo }") 
+                            td 
+                                input(type="text",name="nombre",value="#{persona.nombre }") 
+                            td 
+                                input(type="text",name="tfno",value="#{persona.tfno }") 
+                            td 
+                                input(type="text",name="edad",value="#{persona.edad }")
+                            td 
+                                - if(persona.activado == 0)
+                                    input(type="text",name="activado",value="#{persona.activado}")(style={background: '#EC7063'})
+                                - else
+                                    input(type="text",name="activado",value="#{persona.activado}")(style={background: '#2ECC71'})
+                            td
+                                input(type="submit",name="accion",value="Activar")  
+                                input(type="submit",name="accion",value="Desactivar")  
+                                input(type="submit",name="accion",value="Editar")  
+                                input(type="submit",name="accion",value="Eliminar") 
+            

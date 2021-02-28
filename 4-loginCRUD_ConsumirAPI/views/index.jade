@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Login
+        link(rel="stylesheet",href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css")
+        style(type="text/css")
+           include ../css/styles.css
+           
+    body
+        .container-fluid 
+            .row 
+                .col-lg-4.col-8.mx-auto.border.px-5.py-5.mt-5.bg-white.rounded.shadow
+                    h1.text-center Login
+                    form(action="validar", method="POST")
+                        label Correo: 
+                        br
+                        input(type="email",name="correo",required).form-control
+                        br
+                        label Contraseña:
+                        br
+                        input(type="password",name="pass",required).form-control
+                        - if(mensaje)
+                            p!= mensaje
+                        - else 
+                            br
+                        input(type="submit",value="Entrar").btn.btn-secondary.w-50
+      
