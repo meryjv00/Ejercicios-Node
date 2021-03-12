@@ -1,0 +1,97 @@
+MongoDB siempre es una excelente opción cuando se quieren realizar proyectos web apoyados en grandes conjuntos de datos sin estructurar. Sin estar atado a ningún esquema, el trabajo basado en documentos es el método ideal para gestionar un gran número de datos diferentes que deben ser almacenados y procesados rápidamente.
+
+Así, la implementación de MongoDB resulta apropiada para casi todo tipo de proyectos web que quieran caracterizarse por:
+
+    Escalabilidad: si tu proyecto web está en crecimiento, probablemente aumentará el número de visitas y solicitudes, lo que demanda una mayor capacidad de respuesta por parte de la base de datos.
+
+    Disponibilidad: una de las prioridades de todo proyecto web es la disponibilidad en todo momento, incluso en el caso de fallos en el servidor.
+
+    Flexibilidad: un proyecto debe poder ajustarse en cualquier momento de forma dinámica.
+    
+    Pero, si por otro lado, la estructura de los datos no suele cambiar con normalidad y el crecimiento de los datos es “moderado”, puede que las tecnologías SQL sean la mejor opción.
+    
+Las SQL.
+- Mantenimiento difícil y costoso.
+- Escalabilidad horizontal limitada, inapropiado para proyectos que crezcan mucho (alta escalabilidad).
+- Poca flexibilidad a cambios.
+- Elección de proveedor.
+- Complejidad e instalación.
+
+
+Resumen de comandos.
+    
+show dbs;      --> Muestra las bases de datos disponibles.
+use basededatos;  --> Cambia la base de datos activa.
+
+db.ejemplo.directores.find();  --> Muestra todos los documentos de la colección directores de la bd ejemplo.
+Consultas con condiciones:
+db.ejemplo.usuarios.find({"edad":{"$gt":"20","$lt":"30"}});
+db.ejemplo.usuarios.find({"edad": "$not":{"$gt":"20","$lt":"30"}}});
+db.ejemplo.usuarios.find({"pais":{"$in": ["Chile", "Argentina"]}});
+
+
+db.products.remove({id:2})  --> Borra el registro 2. Se pueden poner condiciones como en los find.
+db.products.update({id:2},{id:2,nombre:"Maria",edad:20}) --> Recordad que para modificar tenemos que incluir el nombre de todos los campos, además del que queremos modificar, para no perder nada.
+
+db.ejemplo.usuarios.drop();  --> Borra la colección usuarios de la BD ejemplo.
+
+use ejemplo;
+db.dropDatabase(); --> Borra la base de datos ejemplo.
+
+
+Exportar/Importar
+mongodump/mongorestore
+mongoexport
+mongodump -d dbETW -c myCollection
+mongorestore –host 127.51.12.1 –port 3017 /backup/mongodump-2013-01-01
+mongorestore -d ejemplo -directoryperdb dump/ejemplo --drop
+
+mongodump -h dbhost -d dbname -o dbdirectory
+
+
+
+Ejemplo join de clase:
+db.ejemplo.usuarios.aggregate([     
+    { $lookup:         
+        {            
+            "from": "ejemplo.rolesasignados",
+            "localField": "id",            
+            "foreignField": "idU",            
+            "as": "rolesA"         
+        }     
+    },     
+    {         
+        "$unwind":"$rolesA"     
+    } 
+]).pretty()
+
+db.ejemplo.rolesasignados.aggregate([     
+    { $lookup:         
+        {            
+            "from": "ejemplo.usuarios",
+            "localField": "idU",            
+            "foreignField": "id",            
+            "as": "rolesU"         
+        }     
+    },
+    { $lookup:         
+        {            
+            "from": "ejemplo.roles",
+            "localField": "idR",            
+            "foreignField": "id",            
+            "as": "rolesA"         
+        }     
+    }   
+    ,  
+    {         
+        "$unwind":"$rolesU",
+        "$unwind":"$rolesA"      
+    } 
+]).pretty() --> Mostraría un join de las tres tablas.
+Si queremos recorrer esto desde mongo se puede meter en un cursos y recorrerlo (ver punto siguiente).
+
+
+
+Definición de cursores:
+var nuevoCursor=db.ejemplo.usuarios.find();
+nuevoCursor.forEach(printjson)
