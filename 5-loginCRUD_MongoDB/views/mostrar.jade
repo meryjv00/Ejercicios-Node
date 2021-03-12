@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Datos recogidos del formulario
+    body
+        h1 Listado de datos
+        - if (estado)
+            - each dato in datos
+                p= "Id: " + dato.id + " Nombre: " + dato.nombre + " Edad: " + dato.edad
+                br
+        - else
+            p= "No se ha encontrado ningún registro"
+        a(href="/indice") Volver
+
